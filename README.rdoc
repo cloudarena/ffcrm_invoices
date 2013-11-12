@@ -1,0 +1,5 @@
+= FfcrmInvoices
+
+Invoice plugin for FatfreeCRM.
+
+This project rocks and uses MIT-LICENSE.
