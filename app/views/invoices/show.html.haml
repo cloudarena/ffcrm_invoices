@@ -1,0 +1,24 @@
+%p#notice= notice
+
+%p
+  %b Status:
+  = @invoice.status
+%p
+  %b Invoice date:
+  = @invoice.invoice_date
+%p
+  %b Order date:
+  = @invoice.order_date
+%p
+  %b Tax:
+  = @invoice.tax
+%p
+  %b Payment due date:
+  = @invoice.payment_due_date
+%p
+  %b Note:
+  = @invoice.note
+
+= link_to 'Edit', edit_invoice_path(@invoice)
+\|
+= link_to 'Back', invoices_path

@@ -1,4 +1,5 @@
-source "http://rubygems.org"
+#source "http://rubygems.org"
+source 'http://venus/mirrors/ruby/'
 
 # Declare your gem's dependencies in ffcrm_invoices.gemspec.
 # Bundler will treat runtime dependencies like base dependencies, and
@@ -15,3 +16,12 @@ gem "jquery-rails"
 
 # To use debugger
 # gem 'debugger'
+
+
+group :assets do
+  gem 'haml-rails', '~>0.3.0'
+end
+
+group :development, :test do
+  gem 'rspec-rails', '~> 2.0'
+end
