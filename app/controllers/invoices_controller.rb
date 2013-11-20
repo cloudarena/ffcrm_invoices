@@ -129,9 +129,9 @@ class InvoicesController < EntitiesController
     if method == :ajax
       if called_from_index_page?
         get_data_for_sidebar
-        @opportunities = get_invoices
-        if @opportunities.blank?
-          @opportunities = get_invoices(:page => current_page - 1) if current_page > 1
+        @invoices = get_invoices
+        if @invoices.blank?
+          @invoices = get_invoices(:page => current_page - 1) if current_page > 1
           render :index and return
         end
       else # Called from related asset.
@@ -140,7 +140,7 @@ class InvoicesController < EntitiesController
       # At this point render destroy.js
     else
       self.current_page = 1
-      flash[:notice] = t(:msg_asset_deleted, @opportunity.name)
+      flash[:notice] = t(:msg_asset_deleted, @invoice.name)
       redirect_to invoices_path
     end
   end
