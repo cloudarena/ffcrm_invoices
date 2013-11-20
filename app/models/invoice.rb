@@ -65,5 +65,21 @@ class Invoice < ActiveRecord::Base
   def name; uniqid; end
 
 
+  #-----------------------------------
+  def attach!(attachment)
+    unless self.send("#{attachment.class.name.downcase}_ids").include?(attachment.id)
+      self.send(attachment.class.name.tableize) << attachment
+    end
+  end
+
+  #---------------------------------------
+  def discard!(attachment)
+    if attachment.is_a?(Task)
+      attachment.update_attribute(:asset, nil)
+    else # 
+      self.send(attachment.class.name.tableize).delete(attachment)
+    end
+  end
+
   ActiveSupport.run_load_hooks(:fat_free_crm_invoice, self)
 end

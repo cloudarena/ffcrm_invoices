@@ -5,6 +5,8 @@ Rails.application.routes.draw do
       post :redraw
     end
     member do
+      put :attach
+      post :discard
     end
   end
 
