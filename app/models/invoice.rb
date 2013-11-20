@@ -9,8 +9,8 @@ class Invoice < ActiveRecord::Base
   # invoice have its tasks, which is different task to opportuntiy, so delete invoice will delete the invoice task.
   belongs_to   :user
   belongs_to   :account
-  #has_many    :invoice_opportunities, :dependent => :destroy
-  #has_many    :opportunities, :through => :invoice_opportunities, :uniq => true, :order => "opporunities.id DESC"
+  has_many    :invoice_opportunities, :dependent => :destroy
+  has_many    :opportunities, :through => :invoice_opportunities, :uniq => true, :order => "opportunity_id DESC"
   has_many    :tasks, :as => :asset, :dependent => :destroy
   
   # validations
