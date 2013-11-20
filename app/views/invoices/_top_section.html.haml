@@ -1,0 +1,50 @@
+= hook(:invoice_top_section, self, :f => f) do
+  .section
+    %table
+      %tr
+        %td
+          .label.req.top #{t :uniqid}:
+          = f.text_field :uniqid, :style=>"width:325px"
+        %td= spacer
+        %td
+          .label.req.top #{t :status}:
+          = f.select :status, @status, { :selected => @invoice.status ? @invoice.status.to_sym : nil }, { :style=>"width:160px" }
+
+    %table{ :border=>0, :width=>500, :cellpadding =>0, :cellspacing=>0 }
+      %tr
+        %td
+          .label.req #{t :invoice_date}:
+          = f.text_field :invoice_date, :value => f.object.invoice_date, :style => "width:110px;", :autocomplete => :off, :class => 'date'
+        %td= spacer
+        %td
+          .label.req #{t :payment_due_date}:
+          = f.text_field :payment_due_date, :value => f.object.payment_due_date, :style => "width:110px;", :autocomplete => :off, :class => 'date'
+        %td= spacer
+        %td
+          .label #{t :order_number}:
+          = f.text_field :order_number, :value => f.object.order_number, :style => "width:110px;", :autocomplete => :off
+        %td= spacer
+        %td
+          .label #{t :order_date}:
+          = f.text_field :order_date, :value => f.object.order_date, :style => "width:110px;", :autocomplete => :off, :class => 'date'
+    = fields_for(@account) do |a|
+      = a.hidden_field :user_id
+      = a.hidden_field :access
+      = a.hidden_field :assigned_to
+      %table
+        %tr
+          %td
+            != account_select_or_create(a) do |options|
+              -# Add [-- None --] account choice when editing existing opportunity that has an account.
+              - options[:selected] = @invoice.id || 0
+              - options[:include_blank] = true #t(:select_none) unless @invoice.new_record? || @invoice.account.blank?
+          %td
+            .label #{t :tax}:
+            = f.select :tax, @tax_options, { :selected => @invoice.tax }, { :style=>"width:160px" }
+                
+    %table
+      %tr
+        %td
+          .label #{t :note}:
+          =f.text_area :note, :value => f.object.note, :style=>"width:500px;"
+

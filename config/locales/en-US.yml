@@ -1,2 +1,25 @@
 en-US:
+  # tab
   tab_invoices: Invoices
+
+  # index
+  invoices: Invoices
+  invoice_small: invoice
+  create_invoice: Create Invoice
+  save_invoice: Edit Invoice
+  
+  # form
+  uniqid: Unique ID
+  invoice_date: Invoice Date
+  payment_due_date: Payment Due Date
+  order_number: Order Number
+  order_date:  Order Date
+  tax: Tax
+  note: Note
+
+  # status
+  draft: Draft
+  sent: Sent
+  late:   Late
+  paid: Paid
+  cancelled: Cancelled

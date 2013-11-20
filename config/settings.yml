@@ -1,0 +1,26 @@
+
+
+
+# Invoice
+#---------------------------------------------------------
+invoice_stem: DR_2009_
+
+invoice_editable_status: :draft
+invoice_status:
+  - :draft 
+  - :sent  
+  - :late    
+  - :paid
+  - :cancelled
+
+invoice_status_color:
+  :draft  : Silver
+  :sent     : Turquoise
+  :late      : Salmon
+  :paid     : Lime
+  :cancelled  : OrangeRed
+
+
+invoice_tax_options:
+  KDV:  18 
+  None: 0

@@ -1,0 +1,30 @@
+%li.highlight[invoice]
+  - if invoice.status
+    .strip{:class=>invoice.status}= t(invoice.status)
+  - else
+    .strip.white #{t :other}
+
+  %ul.tools
+    - if can?(:update, invoice)
+      %li= link_to_edit(invoice)
+      
+    - if shown_on_landing_page?
+      %li= link_to_discard(invoice)
+
+    - if can?(:destroy, invoice)
+      %li= link_to_delete(invoice)
+      
+  .indent
+    - if (account = invoice.account) && account.id
+      == #{t :from} #{link_to_if can?(:read, account), account.name, account_path(account)}
+    =link_to_if can?(:read, :invoice), "#{invoice.uniqid} #{invoice.invoice_date}", invoice
+      
+    %tt
+      &ndash;
+      - user_name = invoice.user_id == current_user.id ? t(:me) : invoice.user.try(:full_name)
+      - if user_name
+        = t(:added_by, :time_ago => time_ago_in_words(invoice.created_at), :user => user_name)
+      - else
+        = t(:added_ago, :value => time_ago_in_words(invoice.created_at))
+
+    = hook(:invoice, self, :invoice => invoice)      

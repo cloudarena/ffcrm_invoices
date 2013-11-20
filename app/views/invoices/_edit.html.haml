@@ -1,0 +1,18 @@
+.remote
+  = simple_form_for(@invoice, :html => one_submit_only, :remote => true) do |f|
+    = link_to_close edit_invoice_path(@invoice)
+    = f.hidden_field :user_id
+    -#= hidden_field_tag "contact",  "#{@contact.id  if @contact}"
+
+    = f.error_messages :object_name => t('invoice')
+
+    = render "invoices/top_section", :f => f
+    -# render "fields/edit_custom_field_group", :f => f
+    -# render "shared/add_comment",        :f => f
+    -# render "fields/groups",             :f => f
+    -# render "entities/permissions",      :f => f, :entity => @invoice
+
+    .buttonbar
+      = f.submit t(:save_invoice), :onclick => %/$("account_assigned_to").value = $F("invoice_assigned_to"); if ($("account_id").visible()) { $("account_id").enable(); }/
+      #{t :or}
+      = link_to_cancel edit_invoice_path(@invoice)

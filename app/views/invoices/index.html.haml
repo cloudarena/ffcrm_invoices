@@ -1,29 +1,20 @@
-%h1 Listing invoices
+= styles_for :invocie
 
-%table
-  %tr
-    %th Status
-    %th Invoice date
-    %th Order date
-    %th Tax
-    %th Payment due date
-    %th Note
-    %th
-    %th
-    %th
+= render 'entities/title_bar'
 
-  - @invoices.each do |invoice|
-    %tr
-      %td= invoice.status
-      %td= invoice.invoice_date
-      %td= invoice.order_date
-      %td= invoice.tax
-      %td= invoice.payment_due_date
-      %td= invoice.note
-      %td= link_to 'Show', invoice
-      %td= link_to 'Edit', edit_invoice_path(invoice)
-      %td= link_to 'Destroy', invoice, method: :delete, data: { confirm: 'Are you sure?' }
+.remote#create_invoice{ hidden }
 
-%br
+-# render "search"
 
-= link_to 'New Invoice', new_invoice_path
+.remote#options{ hidden }
+
+.list#invoices
+  - if @invoices.any?
+    = render @invoices
+  - else
+    = render "shared/empty"
+
+#paginate= render "shared/paginate_with_per_page"
+#export= render "shared/export"
+
+= hook(:invoice_index_after, self)
