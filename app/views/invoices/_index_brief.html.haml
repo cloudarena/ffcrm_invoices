@@ -8,7 +8,7 @@
     - if can?(:update, invoice)
       %li= link_to_edit(invoice)
       
-    - if shown_on_landing_page?
+    - if shown_on_landing_page? && controller_name != 'accounts'
       %li= link_to_discard(invoice)
 
     - if can?(:destroy, invoice)

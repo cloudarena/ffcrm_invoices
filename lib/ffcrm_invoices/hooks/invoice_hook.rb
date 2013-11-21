@@ -48,6 +48,16 @@ class  InvoiceCallback < FatFreeCRM::Callback::Base
     }
   end
 
+  insert_after :show_opportunity_bottom do |view, context|
+    view.instance_eval { 
+      load_select_popups_for(@opportunity, :invoices)
+    }
+  end
 
-  
+  insert_before :show_account_bottom do |view, context|
+    view.instance_eval { 
+      controller.render_to_string :partial=> "invoices/invoices", :locals =>{:object=> @account}
+    }
+  end
+
 end

@@ -30,6 +30,8 @@ ActiveSupport.on_load(:fat_free_crm_ability) do
 end
 
 
+
+
 ##   Model Hooks
 #-------------------------------------------------
 
@@ -41,7 +43,7 @@ end
 
 ## Account
 ActiveSupport.on_load(:fat_free_crm_account) do
-
+  has_many    :invoices,  :uniq => true, :order => "invoices.id DESC"
 end
 
 
