@@ -17,6 +17,6 @@
 
     = render :partial => "opportunities/opportunities", :locals => {:object => @invoice}
     
-    -#= render :partial => "versions/versions", :locals => {:object => @invoice}
+    = render :partial => "versions/versions", :locals => {:object => @invoice}
 
     = load_select_popups_for(@invoice, :tasks, :opportunities)
