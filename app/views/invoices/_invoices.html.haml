@@ -1,6 +1,6 @@
 = section(object, :invoices)
 .list#invoices
   - invoices = object.invoices.order('updated_at desc').paginate(:page => 1, :per_page => 20)
-  = render :partial => "invoices/opportunity", :collection => invoices
+  = render :partial => "invoices/invoice", :collection => invoices
 
 = will_paginate invoices, :id => 'invoices_pagination', :params => {:action => :invoices}

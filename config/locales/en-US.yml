@@ -5,9 +5,12 @@ en-US:
   # index
   invoices: Invoices
   invoice_small: invoice
+
+  # section
   create_invoice: Create Invoice
   save_invoice: Edit Invoice
-  
+  select_invoice: Select Invoice
+
   # form
   uniqid: Unique ID
   invoice_date: Invoice Date

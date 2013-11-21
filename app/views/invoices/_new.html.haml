@@ -1,7 +1,7 @@
 = simple_form_for(@invoice, :html => one_submit_only, :remote => true) do |f|
   = link_to_close new_invoice_path
   = f.hidden_field :user_id
-  -#= hidden_field_tag "contact",  "#{@contact.id  if @contact}"
+  = hidden_field_tag "opportunity",  "#{@opportunity.id  if @opportunity}"
 
   = f.error_messages :object_name => t('invoice')
 

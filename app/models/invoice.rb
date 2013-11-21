@@ -22,6 +22,15 @@ class Invoice < ActiveRecord::Base
   year=Time.now.strftime("%Y")
   scope :thisyear, lambda { {:conditions => ["created_at > '01/01/#{year}'"] }}
   scope :my, lambda { accessible_by(User.current_ability) }
+  scope :text_search, lambda { |query|
+    # postgresql does not like to compare string to integer field
+    if query =~ /^\d+$/
+      query = query.gsub(/[^\w\s\-\.'\p{L}]/u, '').strip
+      where('upper(:uniqid) LIKE upper(:uniqid) OR opportunities.id = :id', :name => "%#{query}%", :id => query)
+    else
+      search('uniqid_cont' => query).result
+    end
+  }
 
   # extensions
   has_ransackable_associations %w(account opportunities activities comments tasks)
@@ -38,6 +47,8 @@ class Invoice < ActiveRecord::Base
     account = Account.create_or_select_for(self, params[:account])
     # may be account_invoice relation
     self.account = account
+    # if in opportunity landing page.
+    self.opportunities << Opportunity.find(params[:opportunity])  unless params[:opportunity].blank?
     self.save
   end
 

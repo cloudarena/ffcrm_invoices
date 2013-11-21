@@ -1,5 +1,6 @@
 
-## load hooksn
+
+## Load hooks
 ActiveSupport.on_load(:before_initialize) do
   hooks_directory = File.expand_path("../hooks", __FILE__)
   Dir["#{hooks_directory}/*_hook.rb"].each do|f|
@@ -29,7 +30,19 @@ ActiveSupport.on_load(:fat_free_crm_ability) do
 end
 
 
-## 
+##   Model Hooks
+#-------------------------------------------------
+
+## Opportunity
+ActiveSupport.on_load(:fat_free_crm_opportunity) do
+  has_many    :invoice_opportunities, :dependent => :destroy
+  has_many    :invoices, :through => :invoice_opportunities, :uniq =>true, :order => "invoices.id DESC"
+end
+
+## Account
+ActiveSupport.on_load(:fat_free_crm_account) do
+
+end
 
 
-##
+
