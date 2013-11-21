@@ -129,36 +129,8 @@ class InvoicesController < EntitiesController
 
   # POST|AJAX /invoices/auto_complete
   #----------------------------------------------------------
-  def auto_complete
-    @query = params[:auto_complete_query] || ''
-    @auto_complete = hook(:auto_complete, self, :query => @query, :user => current_user)
-    if @auto_complete.empty?
-      exclude_ids = auto_complete_ids_to_exclude(params[:related])
-      
-      # if related to account or obj has #account, only get invocies from the accoun , otherwise nothing
-      related_class, id = params[:related].split('/')
-      klass = related_class.classify.constantize
-      obj = klass.find_by_id(id)
-      if klass == Account or (obj.respond_to?(:account) and not obj.account.nil?)  #only return has associated account
-        @auto_complete = Invoice.where("account_id = ?",klass == Account ? id : obj.account.id)
-        @auto_complete = @auto_complete.where("id not in (?)", exclude_ids) if not exclude_ids.empty?
-        @auto_complete = @auto_complete.text_search(@query).result  if @query.strip != "*" # support '*' to return all 
-        @auto_complete = @auto_complete.limit(10)
-      else
-        @auto_complete = []
-      end
-    else
-      @auto_complete = @auto_complete.last
-    end
-
-    session[:auto_complete] = controller_name.to_sym
-    respond_to do |format|
-      format.any(:js, :html)   { render :partial => 'auto_complete' }
-      format.json { render :json => @auto_complete.inject({}){|h,a|
-        h[a.id] = a.respond_to?(:full_name) ? a.full_name : a.name; h
-      }}
-    end
-  end
+  # move to  invoice_hooks.rb
+ 
 
   def next_unique_id
      Invoice.make_unique_id

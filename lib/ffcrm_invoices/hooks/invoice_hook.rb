@@ -23,7 +23,6 @@ class  InvoiceCallback < FatFreeCRM::Callback::Base
       case controller.controller_name
         #opportunies
       when "opportunities" then  # hook 'opportunity' auto_complete
-        exclude_ids = auto_complete_ids_to_exclude(params[:related])
         
         # For related obj is invoice, as invoice has associated account.
         # auto_complete only select 'closed/won' opportunities that belongs to the account.
@@ -32,6 +31,11 @@ class  InvoiceCallback < FatFreeCRM::Callback::Base
           @auto_complete =  @auto_complete.won.joins(:account_opportunity).where("account_opportunities.account_id = ?", obj.account.id)
         end
         
+        # invoices
+      when "invoices" then # 
+        if related_klass == Account or (obj.respond_to?(:account) and not obj.account.nil?)  #only return has associated account
+          @auto_complete = @auto_complete.where("account_id = ?",klass == Account ? id : obj.account.id)
+        end
       end
 
       # support '*' to return all 
