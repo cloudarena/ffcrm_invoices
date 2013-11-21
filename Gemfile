@@ -1,5 +1,4 @@
-#source "http://rubygems.org"
-source 'http://venus/mirrors/ruby/'
+source "http://rubygems.org"
 
 # Declare your gem's dependencies in ffcrm_invoices.gemspec.
 # Bundler will treat runtime dependencies like base dependencies, and
